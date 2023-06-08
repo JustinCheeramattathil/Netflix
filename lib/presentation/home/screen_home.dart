@@ -11,7 +11,7 @@ import 'package:netflix/presentation/widgets/number_title_card.dart';
 
 import '../widgets/main_card.dart';
 
-ValueNotifier<bool> scrollNotifier = ValueNotifier(false);
+ValueNotifier<bool> scrollNotifier = ValueNotifier(true);
 
 class ScreenHome extends StatelessWidget {
   const ScreenHome({super.key});
@@ -57,11 +57,57 @@ class ScreenHome extends StatelessWidget {
                         ),
                       ],
                     ),
-                   scrollNotifier.value==true? Container(
-                      width: double.infinity,
-                      height: 60,
-                      color: Colors.yellow,
-                    ):kheight,
+                    scrollNotifier.value == true
+                        ? AnimatedContainer(
+                            duration: Duration(milliseconds: 1000),
+                            width: double.infinity,
+                            height: 80,
+                            color: Colors.black.withOpacity(0.3),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Image.network(
+                                      "https://cdn-images-1.medium.com/v2/resize:fit:1200/1*ty4NvNrGg4ReETxqU2N3Og.png",
+                                      width: 60,
+                                      height: 60,
+                                    ),
+                                    const Spacer(),
+                                    const Icon(
+                                      Icons.cast,
+                                      color: Colors.white,
+                                      size: 30,
+                                    ),
+                                    kwidth,
+                                    Container(
+                                        width: 30,
+                                        height: 30,
+                                        color: Colors.blue),
+                                    kwidth,
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(
+                                      "TV Shows",
+                                      style: khomeTitleText,
+                                    ),
+                                    Text(
+                                      "Movies",
+                                      style: khomeTitleText,
+                                    ),
+                                    Text(
+                                      "Categories",
+                                      style: khomeTitleText,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                        : kheight,
                   ],
                 ),
               );
