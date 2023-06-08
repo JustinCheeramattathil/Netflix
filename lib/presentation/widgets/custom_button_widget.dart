@@ -11,8 +11,8 @@ class CustomButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Icon(
-          Icons.add,
+        Icon(
+          icon,
           color: kwhitecolor,
           size: 30,
         ),
