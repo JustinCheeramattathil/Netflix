@@ -19,40 +19,52 @@ class ScreenHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: NotificationListener<UserScrollNotification>(
-        onNotification: (notification) {
-          final ScrollDirection direction = notification.direction;
-          print(direction);
-          if (direction == ScrollDirection.reverse) {
-            scrollNotifier.value = false;
-          } else if (direction == ScrollDirection.forward) {
-            scrollNotifier.value = true;
-          }
-          return true;
-        },
-        child: ListView(
-          children: const [
-            BackgroundCard(),
-            MainTitleCard(
-              title: "Released in the past year",
-            ),
-            kheight,
-            MainTitleCard(
-              title: "Trending Now",
-            ),
-            kheight,
-            NumberTitleCard(),
-            kheight,
-            MainTitleCard(
-              title: "Tense Dramas",
-            ),
-            kheight,
-            MainTitleCard(
-              title: "South Indian Cinema",
-            ),
-          ],
-        ),
-      ),
-    );
+        body: ValueListenableBuilder(
+            valueListenable: scrollNotifier,
+            builder: (BuildContext context, index, _) {
+              return NotificationListener<UserScrollNotification>(
+                onNotification: (notification) {
+                  final ScrollDirection direction = notification.direction;
+                  print(direction);
+                  if (direction == ScrollDirection.reverse) {
+                    scrollNotifier.value = false;
+                  } else if (direction == ScrollDirection.forward) {
+                    scrollNotifier.value = true;
+                  }
+                  return true;
+                },
+                child: Stack(
+                  children: [
+                    ListView(
+                      children: const [
+                        BackgroundCard(),
+                        MainTitleCard(
+                          title: "Released in the past year",
+                        ),
+                        kheight,
+                        MainTitleCard(
+                          title: "Trending Now",
+                        ),
+                        kheight,
+                        NumberTitleCard(),
+                        kheight,
+                        MainTitleCard(
+                          title: "Tense Dramas",
+                        ),
+                        kheight,
+                        MainTitleCard(
+                          title: "South Indian Cinema",
+                        ),
+                      ],
+                    ),
+                   scrollNotifier.value==true? Container(
+                      width: double.infinity,
+                      height: 60,
+                      color: Colors.yellow,
+                    ):kheight,
+                  ],
+                ),
+              );
+            }));
   }
 }
