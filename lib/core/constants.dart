@@ -12,6 +12,7 @@ const kheight20 = SizedBox(
 
 // BorderRadius
 final BorderRadius kRadius10 = BorderRadius.circular(10);
+final BorderRadius kRadius30 = BorderRadius.circular(30);
 
 // Image
 const kMainimage =
@@ -20,3 +21,6 @@ const kMainimage =
 // Textstyle
 TextStyle khomeTitleText =
     const TextStyle(fontSize: 14, fontWeight: FontWeight.bold);
+
+const newAndHotTempImage =
+    "https://www.themoviedb.org/t/p/w355_and_h200_multi_faces/3ib0uov9Qq9JtTIEGL39irTa3vZ.jpg";
