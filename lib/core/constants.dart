@@ -28,3 +28,5 @@ TextStyle khomeTitleText =
 const newAndHotTempImage =
     "https://www.themoviedb.org/t/p/w355_and_h200_multi_faces/3ib0uov9Qq9JtTIEGL39irTa3vZ.jpg";
 const newAndHotTempImage2 = "https://www.themoviedb.org/t/p/w355_and_h200_multi_faces/iHSwvRVsRyxpX7FE7GbviaDvgGZ.jpg";
+
+
