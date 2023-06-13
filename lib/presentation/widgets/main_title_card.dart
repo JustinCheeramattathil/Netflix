@@ -4,17 +4,17 @@ import 'package:netflix/presentation/widgets/main_title.dart';
 
 class MainTitleCard extends StatelessWidget {
   const MainTitleCard({
-    super.key,required this.title,
-
+    super.key,
+    required this.title,
   });
-      final  String title;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         MainTitle(
+        MainTitle(
           title: title,
         ),
         LimitedBox(

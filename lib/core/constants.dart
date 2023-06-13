@@ -32,5 +32,3 @@ const imageAppendUrl = 'https://image.tmdb.org/t/p/w500';
 
 const newAndHotTempImage2 =
     "https://www.themoviedb.org/t/p/w355_and_h200_multi_faces/iHSwvRVsRyxpX7FE7GbviaDvgGZ.jpg";
-
-

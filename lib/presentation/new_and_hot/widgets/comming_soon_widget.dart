@@ -41,7 +41,7 @@ class ComingSoonWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-             const VideoWidget(),
+              const VideoWidget(),
               Row(
                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -92,4 +92,3 @@ class ComingSoonWidget extends StatelessWidget {
     );
   }
 }
-
