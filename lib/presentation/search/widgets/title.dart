@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 
 class SearchTextTitle extends StatelessWidget {
   final String title;
-  const SearchTextTitle({super.key, required this.title});
+  const SearchTextTitle({
+    Key? key,
+    required this.title,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
       title,
       style: const TextStyle(
-        fontSize: 22,
+        fontSize: 25,
         fontWeight: FontWeight.bold,
       ),
     );

@@ -1,29 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:netflix/application/search/search_bloc.dart';
 import 'package:netflix/core/constants.dart';
 import 'package:netflix/presentation/search/widgets/title.dart';
 
-const imageurl =
-    'https://www.themoviedb.org/t/p/w220_and_h330_face/plcZXvI310FkbwIptvd6rqk63LP.jpg';
-
-class SearchResultWidget extends StatelessWidget {
-  const SearchResultWidget({super.key});
+class SearchResultwidget extends StatelessWidget {
+  const SearchResultwidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SearchTextTitle(title: 'Movies & Tv'),
+        const SearchTextTitle(title: "Movie & Tv"),
         kheight,
         Expanded(
-          child: GridView.count(
-            crossAxisCount: 3,
-            mainAxisSpacing: 5,
-            crossAxisSpacing: 5,
-            childAspectRatio: 1 / 1.4,
-            children: List.generate(20, (index) {
-              return const MainCard();
-            }),
+          child: BlocBuilder<SearchBloc, SearchState>(
+            builder: (context, state) {
+              return GridView.count(
+                shrinkWrap: true,
+                crossAxisCount: 3,
+                mainAxisSpacing: 8,
+                crossAxisSpacing: 8,
+                childAspectRatio: 1 / 1.5,
+                children: List.generate(
+                  20,
+                  (index) {
+                    final movie = state.searchResultList[index];
+                    return MainCard(imageurl: movie.posterImageUrl);
+                  },
+                ),
+              );
+            },
           ),
         ),
       ],
@@ -32,17 +40,18 @@ class SearchResultWidget extends StatelessWidget {
 }
 
 class MainCard extends StatelessWidget {
-  const MainCard({super.key});
+  final String imageurl;
+  const MainCard({super.key, required this.imageurl});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        image: const DecorationImage(
+        image: DecorationImage(
           image: NetworkImage(imageurl),
           fit: BoxFit.cover,
         ),
+        borderRadius: BorderRadius.circular(7),
       ),
     );
   }

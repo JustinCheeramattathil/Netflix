@@ -17,7 +17,7 @@ class SearchIdleWidget extends StatelessWidget {
         const SearchTextTitle(
           title: 'Top Searches',
         ),
-        kwidth,
+        kheight,
         Expanded(
           child: BlocBuilder<SearchBloc, SearchState>(
             builder: (context, state) {
