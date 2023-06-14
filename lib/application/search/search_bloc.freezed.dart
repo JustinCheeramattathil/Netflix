@@ -312,7 +312,7 @@ abstract class SearchMovie implements SearchEvent {
 
 /// @nodoc
 mixin _$SearchState {
-  List<SearchResultData> get searchResults =>
+  List<SearchResultData> get searchResultList =>
       throw _privateConstructorUsedError;
   List<Downloads> get idleList => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
@@ -330,7 +330,7 @@ abstract class $SearchStateCopyWith<$Res> {
       _$SearchStateCopyWithImpl<$Res, SearchState>;
   @useResult
   $Res call(
-      {List<SearchResultData> searchResults,
+      {List<SearchResultData> searchResultList,
       List<Downloads> idleList,
       bool isLoading,
       bool isError});
@@ -349,15 +349,15 @@ class _$SearchStateCopyWithImpl<$Res, $Val extends SearchState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? searchResults = null,
+    Object? searchResultList = null,
     Object? idleList = null,
     Object? isLoading = null,
     Object? isError = null,
   }) {
     return _then(_value.copyWith(
-      searchResults: null == searchResults
-          ? _value.searchResults
-          : searchResults // ignore: cast_nullable_to_non_nullable
+      searchResultList: null == searchResultList
+          ? _value.searchResultList
+          : searchResultList // ignore: cast_nullable_to_non_nullable
               as List<SearchResultData>,
       idleList: null == idleList
           ? _value.idleList
@@ -384,7 +384,7 @@ abstract class _$$_SearchStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<SearchResultData> searchResults,
+      {List<SearchResultData> searchResultList,
       List<Downloads> idleList,
       bool isLoading,
       bool isError});
@@ -401,15 +401,15 @@ class __$$_SearchStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? searchResults = null,
+    Object? searchResultList = null,
     Object? idleList = null,
     Object? isLoading = null,
     Object? isError = null,
   }) {
     return _then(_$_SearchState(
-      searchResults: null == searchResults
-          ? _value._searchResults
-          : searchResults // ignore: cast_nullable_to_non_nullable
+      searchResultList: null == searchResultList
+          ? _value._searchResultList
+          : searchResultList // ignore: cast_nullable_to_non_nullable
               as List<SearchResultData>,
       idleList: null == idleList
           ? _value._idleList
@@ -431,19 +431,20 @@ class __$$_SearchStateCopyWithImpl<$Res>
 
 class _$_SearchState implements _SearchState {
   const _$_SearchState(
-      {required final List<SearchResultData> searchResults,
+      {required final List<SearchResultData> searchResultList,
       required final List<Downloads> idleList,
       required this.isLoading,
       required this.isError})
-      : _searchResults = searchResults,
+      : _searchResultList = searchResultList,
         _idleList = idleList;
 
-  final List<SearchResultData> _searchResults;
+  final List<SearchResultData> _searchResultList;
   @override
-  List<SearchResultData> get searchResults {
-    if (_searchResults is EqualUnmodifiableListView) return _searchResults;
+  List<SearchResultData> get searchResultList {
+    if (_searchResultList is EqualUnmodifiableListView)
+      return _searchResultList;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_searchResults);
+    return EqualUnmodifiableListView(_searchResultList);
   }
 
   final List<Downloads> _idleList;
@@ -461,7 +462,7 @@ class _$_SearchState implements _SearchState {
 
   @override
   String toString() {
-    return 'SearchState(searchResults: $searchResults, idleList: $idleList, isLoading: $isLoading, isError: $isError)';
+    return 'SearchState(searchResultList: $searchResultList, idleList: $idleList, isLoading: $isLoading, isError: $isError)';
   }
 
   @override
@@ -470,7 +471,7 @@ class _$_SearchState implements _SearchState {
         (other.runtimeType == runtimeType &&
             other is _$_SearchState &&
             const DeepCollectionEquality()
-                .equals(other._searchResults, _searchResults) &&
+                .equals(other._searchResultList, _searchResultList) &&
             const DeepCollectionEquality().equals(other._idleList, _idleList) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
@@ -480,7 +481,7 @@ class _$_SearchState implements _SearchState {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(_searchResults),
+      const DeepCollectionEquality().hash(_searchResultList),
       const DeepCollectionEquality().hash(_idleList),
       isLoading,
       isError);
@@ -494,13 +495,13 @@ class _$_SearchState implements _SearchState {
 
 abstract class _SearchState implements SearchState {
   const factory _SearchState(
-      {required final List<SearchResultData> searchResults,
+      {required final List<SearchResultData> searchResultList,
       required final List<Downloads> idleList,
       required final bool isLoading,
       required final bool isError}) = _$_SearchState;
 
   @override
-  List<SearchResultData> get searchResults;
+  List<SearchResultData> get searchResultList;
   @override
   List<Downloads> get idleList;
   @override
