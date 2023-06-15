@@ -19,6 +19,8 @@ final dummyVideoUrls = [
   "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
 ];
 
+ValueNotifier<Set<int>> likedVideosIdsNotifier = ValueNotifier({});
+
 @Injectable()
 class FastLaughBloc extends Bloc<FastLaughEvent, FastLaughState> {
   FastLaughBloc(
@@ -27,19 +29,41 @@ class FastLaughBloc extends Bloc<FastLaughEvent, FastLaughState> {
     on<FastLaughEvent>((event, emit) async {
       //sending loading to ui
       emit(
-        const FastLaughState(videosList: [], isLoading: true, isError: false),
+        const FastLaughState(
+          videosList: [],
+          isLoading: true,
+          isError: false,
+        ),
       );
       //getting trending movies
       final _result = await _downloadsService.getdownloadsImage();
-      final _state = _result.fold((l) {
-        return const FastLaughState(
-            videosList: [], isLoading: false, isError: true);
-      },
-          (resp) => FastLaughState(
-              videosList: resp, isLoading: false, isError: false));
+      final _state = _result.fold(
+        (l) {
+          return FastLaughState(
+            videosList: [],
+            isLoading: false,
+            isError: true,
+          );
+        },
+        (resp) => FastLaughState(
+          videosList: resp,
+          isLoading: false,
+          isError: false,
+        ),
+      );
       //send ui
 
       emit(_state);
+    });
+
+    on<LikeVideo>((event, emit) async {
+      likedVideosIdsNotifier.value.add(event.id);
+      likedVideosIdsNotifier.notifyListeners();
+    });
+
+    on<UnLikeVideo>((event, emit) async {
+      likedVideosIdsNotifier.value.remove(event.id);
+      likedVideosIdsNotifier.notifyListeners();
     });
   }
 }
