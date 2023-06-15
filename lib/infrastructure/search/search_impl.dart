@@ -23,17 +23,14 @@ class SearchIpl implements SearchService {
           'query': movieQuery,
         },
       );
-      
+
       if (response.statusCode == 200 || response.statusCode == 201) {
         final result = SearchRep.fromJson(response.data);
         return Right(result);
       } else {
         return const Left(MainFailure.severFailure());
       }
-    } 
-    
-    
-    catch (e) {
+    } catch (e) {
       log(e.toString());
       return const Left(MainFailure.clientFailure());
     }

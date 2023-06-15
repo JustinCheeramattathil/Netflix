@@ -4,10 +4,6 @@ part of 'fast_laugh_bloc.dart';
 class FastLaughEvent with _$FastLaughEvent {
   const factory FastLaughEvent.initialize() = Initialize;
 
-   const factory FastLaughEvent.likeVideo({
-    required int id
-   }) = LikeVideo;
-   const factory FastLaughEvent.unlikeVideo({
-    required int id
-   }) = UnLikeVideo;
+  const factory FastLaughEvent.likeVideo({required int id}) = LikeVideo;
+  const factory FastLaughEvent.unlikeVideo({required int id}) = UnLikeVideo;
 }
