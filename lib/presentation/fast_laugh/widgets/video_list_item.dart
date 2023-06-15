@@ -2,6 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix/core/colors.dart';
 import 'package:netflix/core/constants.dart';
+import 'package:netflix/domain/downloads/models/downloads.dart';
+import 'package:video_player/video_player.dart';
+
+class VideoListItemInheritedWidget extends InheritedWidget {
+  final Widget widget;
+  final Downloads movieData;
+
+  const VideoListItemInheritedWidget(
+      {Key? key, required this.widget, required this.movieData})
+      : super(child: widget);
+
+  @override
+  bool updateShouldNotify(covariant VideoListItemInheritedWidget oldWidget) {
+    return oldWidget.movieData != movieData;
+  }
+
+  static VideoListItemInheritedWidget? of(BuildContext context) {
+    return context
+        .dependOnInheritedWidgetOfExactType<VideoListItemInheritedWidget>();
+  }
+}
 
 class VideoListItem extends StatelessWidget {
   final int index;
@@ -9,6 +30,9 @@ class VideoListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final posterPath =
+        VideoListItemInheritedWidget.of(context)?.movieData.posterPath;
+
     return Stack(
       children: [
         Container(
@@ -38,13 +62,14 @@ class VideoListItem extends StatelessWidget {
                 // rightside
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: const [
+                  children: [
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 10),
                       child: CircleAvatar(
                         radius: 30,
-                        backgroundImage: NetworkImage(
-                            'https://www.themoviedb.org/t/p/w220_and_h330_face/34m2tygAYBGqA9MXKhRDtzYd4MR.jpg'),
+                        backgroundImage: posterPath == null
+                            ? null
+                            : NetworkImage('$imageAppendUrl$posterPath'),
                       ),
                     ),
                     VideoActionsget(icon: Icons.emoji_emotions, title: 'LOL'),
@@ -82,5 +107,30 @@ class VideoActionsget extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class FastLaughVideoPlayer extends StatefulWidget {
+  final String videoUrl;
+  final void Function(bool isPlaying) onStaChanged;
+  const FastLaughVideoPlayer(
+      {super.key, required this.videoUrl, required this.onStaChanged});
+
+  @override
+  State<FastLaughVideoPlayer> createState() => _FastLaughVideoPlayerState();
+}
+
+class _FastLaughVideoPlayerState extends State<FastLaughVideoPlayer> {
+  late VideoPlayerController _videoPlayerController;
+
+  @override
+  void initState() {
+    _videoPlayerController = VideoPlayerController.network(widget.videoUrl);
+    _videoPlayerController.initialize().then((value) => null);
+    super.initState();
+  }
+   @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
