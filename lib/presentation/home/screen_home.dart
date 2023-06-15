@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:netflix/core/colors.dart';
 import 'package:netflix/core/constants.dart';
-import 'package:netflix/presentation/widgets/background_card.dart';
-import 'package:netflix/presentation/widgets/custom_button_widget.dart';
-import 'package:netflix/presentation/widgets/main_title.dart';
+import 'package:netflix/infrastructure/home/home_firstimage.dart';
+import 'package:netflix/infrastructure/home/home_release_poster.dart';
+import 'package:netflix/infrastructure/home/south_indian_movie.dart';
+import 'package:netflix/infrastructure/home/tense_drama.dart';
+import 'package:netflix/infrastructure/home/top_10_show_in_india_today.dart';
+import 'package:netflix/infrastructure/home/trending_now.dart';
+import 'package:netflix/presentation/home/background_card.dart';
+import 'package:netflix/presentation/home/number_title_card.dart';
 import 'package:netflix/presentation/widgets/main_title_card.dart';
-import 'package:netflix/presentation/widgets/number_card.dart';
-import 'package:netflix/presentation/widgets/number_title_card.dart';
+import 'package:netflix/presentation/widgets/netflix_profile.dart';
 
-import '../widgets/main_card.dart';
 
-ValueNotifier<bool> scrollNotifier = ValueNotifier(true);
+ValueNotifier<bool> scrollNotifire = ValueNotifier(true);
 
 class ScreenHome extends StatelessWidget {
   const ScreenHome({super.key});
@@ -19,98 +22,203 @@ class ScreenHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ValueListenableBuilder(
-            valueListenable: scrollNotifier,
-            builder: (BuildContext context, index, _) {
-              return NotificationListener<UserScrollNotification>(
-                onNotification: (notification) {
-                  final ScrollDirection direction = notification.direction;
-                  print(direction);
-                  if (direction == ScrollDirection.reverse) {
-                    scrollNotifier.value = false;
-                  } else if (direction == ScrollDirection.forward) {
-                    scrollNotifier.value = true;
-                  }
-                  return true;
-                },
-                child: Stack(
-                  children: [
-                    ListView(
-                      children: const [
-                        BackgroundCard(),
-                        MainTitleCard(
-                          title: "Released in the past year",
-                        ),
-                        kheight,
-                        MainTitleCard(
-                          title: "Trending Now",
-                        ),
-                        kheight,
-                        NumberTitleCard(),
-                        kheight,
-                        MainTitleCard(
-                          title: "Tense Dramas",
-                        ),
-                        kheight,
-                        MainTitleCard(
-                          title: "South Indian Cinema",
-                        ),
-                      ],
-                    ),
-                    scrollNotifier.value == true
-                        ? AnimatedContainer(
-                            duration: Duration(milliseconds: 1000),
-                            width: double.infinity,
-                            height: 80,
-                            color: Colors.black.withOpacity(0.3),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Image.network(
-                                      "https://cdn-images-1.medium.com/v2/resize:fit:1200/1*ty4NvNrGg4ReETxqU2N3Og.png",
-                                      width: 60,
-                                      height: 60,
+      body: ValueListenableBuilder(
+        valueListenable: homefirstimage,
+        builder: (context, homeImage, _) {
+          return homeImage.isEmpty
+              ? const Center(child: CircularProgressIndicator())
+              : ValueListenableBuilder(
+                  valueListenable: scrollNotifire,
+                  builder: (BuildContext context, index, _) {
+                    return NotificationListener<UserScrollNotification>(
+                      onNotification: (notification) {
+                        final ScrollDirection direction =
+                            notification.direction;
+                        if (direction == ScrollDirection.reverse) {
+                          scrollNotifire.value = false;
+                        } else if (direction == ScrollDirection.forward) {
+                          scrollNotifire.value = true;
+                        }
+                        return true;
+                      },
+                      child: Stack(
+                        children: [
+                          ListView(
+                            children: [
+                              ValueListenableBuilder(
+                                  valueListenable: homefirstimage,
+                                  builder: (context, result, _) {
+                                    if (result.isNotEmpty) {
+                                      return HomeFirstContainer(
+                                        imageUrl: result[0].bagroudimage,
+                                      );
+                                    }
+                                    return const Center(
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                      ),
+                                    );
+                                  }),
+                              kheight,
+                              ValueListenableBuilder(
+                                valueListenable: relesethePastYear,
+                                builder: (context, reslt, _) {
+                                  if (reslt.isNotEmpty) {
+                                    return MainTitleCard(
+                                      title: "Released in the past year",
+                                      result: reslt,
+                                    );
+                                  }
+                                  return const Center(
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
                                     ),
-                                    const Spacer(),
-                                    const Icon(
-                                      Icons.cast,
-                                      color: Colors.white,
-                                      size: 30,
+                                  );
+                                },
+                              ),
+                              kheight,
+                              ValueListenableBuilder(
+                                valueListenable: trendingNow,
+                                builder: (context, trendingNow, _) {
+                                  if (trendingNow.isNotEmpty) {
+                                    return MainTitleCard(
+                                      title: "Trending Now",
+                                      result: trendingNow,
+                                    );
+                                  }
+                                  return const Center(
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
                                     ),
-                                    kwidth,
-                                    Container(
-                                        width: 30,
-                                        height: 30,
-                                        color: Colors.blue),
-                                    kwidth,
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Text(
-                                      "TV Shows",
-                                      style: khomeTitleText,
+                                  );
+                                },
+                              ),
+                              kheight,
+                              ValueListenableBuilder(
+                                valueListenable: top10showindia,
+                                builder: (context, resultofsoutindianmovie, _) {
+                                  if (resultofsoutindianmovie.isNotEmpty) {
+                                    return NumberTitleCard(
+                                      result: resultofsoutindianmovie,
+                                    );
+                                  }
+                                  return const Center(
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
                                     ),
-                                    Text(
-                                      "Movies",
-                                      style: khomeTitleText,
+                                  );
+                                },
+                              ),
+                              kheight,
+                              ValueListenableBuilder(
+                                valueListenable: tendeAndDrama,
+                                builder: (context, resultTenseDrama, _) {
+                                  if (resultTenseDrama.isNotEmpty) {
+                                    return MainTitleCard(
+                                      title: " Tense Dramas",
+                                      result: resultTenseDrama,
+                                    );
+                                  }
+                                  return const Center(
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
                                     ),
-                                    Text(
-                                      "Categories",
-                                      style: khomeTitleText,
+                                  );
+                                },
+                              ),
+                              kheight,
+                              ValueListenableBuilder(
+                                valueListenable: southindianmovie,
+                                builder: (context, resultodfsutindianmovie, _) {
+                                  if (resultodfsutindianmovie.isNotEmpty) {
+                                    return MainTitleCard(
+                                      title: "Sout indian Cinema",
+                                      result:  resultodfsutindianmovie,
+                                    );
+                                  }
+                                  return const Center(
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
                                     ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          )
-                        : kheight,
-                  ],
-                ),
-              );
-            }));
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                          scrollNotifire.value == true
+                              ? AnimatedContainer(
+                                  duration: const Duration(milliseconds: 1500),
+                                  width: double.infinity,
+                                  height: 80,
+                                  color: Colors.black.withOpacity(0.3),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Image.network(
+                                            'https://proofmart.com/wp-content/uploads/2021/06/598-2-1.png',
+                                            width: 50,
+                                            height: 50,
+                                          ),
+                                          const Spacer(),
+                                          const Icon(
+                                            Icons.cast_outlined,
+                                            size: 30,
+                                            color: kwhitecolor,
+                                          ),
+                                          kwidth,
+                                          const NetflixProfile(),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Text(
+                                            'TV Shows',
+                                            style: kHometext,
+                                          ),
+                                          Text(
+                                            'Movies',
+                                            style: kHometext,
+                                          ),
+                                          Text(
+                                            'Categories',
+                                            style: kHometext,
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                )
+                              : kheight
+                        ],
+                      ),
+                    );
+                  },
+                );
+        },
+      ),
+    );
   }
+}
+
+TextButton playButton() {
+  return TextButton.icon(
+    onPressed: () {},
+    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(kwhitecolor)),
+    icon: const Icon(
+      Icons.play_arrow,
+      size: 25,
+      color: backgroundColor,
+    ),
+    label: const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10.0),
+      child: Text(
+        "Play",
+        style: TextStyle(
+            fontSize: 20, color: backgroundColor, fontWeight: FontWeight.bold),
+      ),
+    ),
+  );
 }

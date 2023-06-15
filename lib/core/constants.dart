@@ -34,3 +34,7 @@ const newAndHotTempImage2 =
     "https://www.themoviedb.org/t/p/w355_and_h200_multi_faces/iHSwvRVsRyxpX7FE7GbviaDvgGZ.jpg";
  const netflixprofile =
     'https://i.pinimg.com/474x/0d/dc/ca/0ddccae723d85a703b798a5e682c23c1--horse-stuff-sleepover.jpg';
+
+
+TextStyle kHometext =
+    const TextStyle(fontSize: 14, fontWeight: FontWeight.bold);

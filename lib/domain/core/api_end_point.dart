@@ -10,4 +10,8 @@ class ApiEndPoints {
   static const upcomingmovie = '$kBaseUrl/trending/all/week?api_key=$apiKey';
   static const everyoneseenmovie =
       '$kBaseUrl/trending/all/week?api_key=$apiKey';
+  static const tensedrrama = '$kBaseUrl/movie/top_rated?api_key=$apiKey';
+  static const soutindianmovie = '$kBaseUrl/discover/tv?api_key=$apiKey';
+  static const top10showindia = '$kBaseUrl/movie/now_playing?api_key=$apiKey';
+  static const homeMainimage = '$kBaseUrl/movie/now_playing?api_key=$apiKey';
 }

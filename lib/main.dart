@@ -7,6 +7,12 @@ import 'package:netflix/application/fast_laugh/fast_laugh_bloc.dart';
 import 'package:netflix/application/search/search_bloc.dart';
 import 'package:netflix/core/colors.dart';
 import 'package:netflix/domain/core/di/injectable.dart';
+import 'package:netflix/infrastructure/home/home_firstimage.dart';
+import 'package:netflix/infrastructure/home/home_release_poster.dart';
+import 'package:netflix/infrastructure/home/south_indian_movie.dart';
+import 'package:netflix/infrastructure/home/tense_drama.dart';
+import 'package:netflix/infrastructure/home/top_10_show_in_india_today.dart';
+import 'package:netflix/infrastructure/home/trending_now.dart';
 import 'package:netflix/infrastructure/hot_and_new/coming_soon.dart';
 import 'package:netflix/infrastructure/hot_and_new/everyone_watching.dart';
 import 'package:netflix/presentation/main_page/screen_main_page.dart';
@@ -16,6 +22,12 @@ Future<void> main() async {
   await configureInjection();
   getHotAndSNewEveryWatching();
   getHotandNewComingSoon();
+  getHomeImage();
+  getHomerelesethePastYear();
+  getHomeTrendingNow();
+  getHomeTendeAndDrama();
+  getHomeSouthIndian();
+  getHomeTop10showindia();
   runApp(const MyApp());
 }
 
